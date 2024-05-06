@@ -2,7 +2,7 @@
 ![alt text](Screenshot_2024-05-06_00-58-00.png)
 ## Introduction
 
-The CAP1 for SWS10 includes performing a penetration test on a server deployed within the College Network and submission of an engagement report.
+The CAP1 for SWS101 includes performing a penetration test on a server deployed within the College Network and submission of an engagement report.
 
 As a Senior Penetration Tester working in RUB, you are tasked with assessing the security of a new server set up by one of the lecturers. The server is about to be released on the internet and needs to undergo thorough testing before its release.
 
