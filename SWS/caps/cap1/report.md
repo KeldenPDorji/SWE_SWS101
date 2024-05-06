@@ -30,6 +30,7 @@ My approach to assessing the network security involved a combination of automate
 ### Tools attempted & Scope
 - Nmap
 To identify active hosts on the net,port scanning and attempting to determine the operating system of the RHOST
+
 ![alt text](Screenshot_2024-05-06_00-58-21.png)
 
 - Metasploit
@@ -95,7 +96,7 @@ Module Name: exploit/multi/http/php_cgi_arg_injection
 
 This module exploits a vulnerability in PHP CGI when run as a FastCGI process. The vulnerability allows an attacker to execute arbitrary code by injecting specially crafted arguments in the query string. An attacker can use this vulnerability to execute arbitrary code and compromise the target system.
 
-First, I conduct a search on the Common Vulnerabilities and Exposures (CVE) website and Google to identify any known vulnerabilities affecting the PHP version. Next, using Metasploit's auxiliary modules, I confirm the versions of Apache and PHP running on the target machine. With this information, I use the search command in Metasploit to access exploits and proof of concepts from the "exploitdb.com" repository, targeting specific vulnerabilities in Apache and PHP. Upon identifying a relevant exploit such as exploit/multi/http/php_cgi_arg_injection for PHP, I configure the exploit to create an interactive shell, allowing me to explore the target machine and execute commands. Finally, I execute the exploit to gain remote access to the vulnerable machine and confirm the compromise through various commands, verifying elevated privileges if obtained.
+First, I searched on the Common Vulnerabilities and Exposures (CVE) website and Google to identify any known vulnerabilities affecting the PHP version. Next, using Metasploit's auxiliary modules, I confirm the versions of Apache and PHP running on the target machine. With this information, I use the search command in Metasploit to access exploits and proof of concepts from the "exploitdb.com" repository, targeting specific vulnerabilities in Apache and PHP. Upon identifying a relevant exploit such as exploit/multi/http/php_cgi_arg_injection for PHP, I configure the exploit to create an interactive shell, allowing me to explore the target machine and execute commands. Finally, I execute the exploit to gain remote access to the vulnerable machine and confirm the compromise through various commands, verifying elevated privileges if obtained.
 ![alt text](Screenshot_2024-04-26_18-37-43.png)
 ![alt text](Screenshot_2024-04-26_18-38-00.png)
 
@@ -192,9 +193,9 @@ Identify NFS-related services running on port 2049.
 Use showmount -a to check NFS server status.
 Discover root file system can be mounted.
 Generate SSH key pair on attacking machine using ssh-keygen.
-Mount Metasploitable's root file system on attacking machine.
+Mount Metasploitable's root file system on the attacking machine.
 Copy attacker's public key to authorized_keys file.
-Use ssh command to connect to Metasploitable using private key.
+Use ssh command to connect to Metasploitable using a private key.
 Gain root privileges on Metasploitable.
 Verify privileges with commands like whoami.
 Extract root user's encrypted passwords from shadow file.
@@ -258,101 +259,118 @@ This module performs a brute force attack against rsh (Remote Shell) servers to 
 ## Remediation Summary
 
 - Exploit 1: PHP CGI Argument Injection (Port 80 - HTTP)
+
 Update PHP to the latest version to patch the CGI argument injection vulnerability.
 Regularly monitor the Common Vulnerabilities and Exposures (CVE) website and other relevant sources for PHP vulnerabilities and security patches.
 Implement a web application firewall (WAF) to filter and block malicious requests targeting PHP vulnerabilities.
 Harden the web server configuration to restrict access to sensitive files and directories.
 
 - Exploit 2: UnrealIRCd 3.2.8.1 Backdoor Command Execution (Ports 6667 and 6697 - UnrealIRCd)
+
 Upgrade to a patched version of UnrealIRCd to remove the backdoor.
 Verify the integrity of the UnrealIRCd installation to ensure no malicious modifications have been made.
 Regularly monitor the UnrealIRCd website and security advisories for any new vulnerabilities and updates.
 Implement network segmentation to isolate the IRC server from critical systems and sensitive data.
 
 - Exploit 3: PostgreSQL Payload Execution (Port 5432 - PostgreSQL)
+
 Ensure PostgreSQL is up to date with the latest security patches.
 Implement strong password policies for PostgreSQL user accounts.
 Enable network encryption (SSL/TLS) for PostgreSQL connections to protect against eavesdropping and man-in-the-middle attacks.
 
 - Exploit 4: VSFTPD 2.3.4 Backdoor Command Execution (Port 21 - FTP)
+
 Upgrade to a patched version of VSFTPD to remove the backdoor.
 Regularly monitor the VSFTPD website and security advisories for any new vulnerabilities and updates.
 Implement network segmentation to isolate the FTP server from critical systems and sensitive data.
 Use strong FTP user credentials and implement account lockout policies to mitigate brute force attacks.
 
 - Exploit 5: "username map script" Command Execution (Ports 139 and 445 - SMB)
+
 Disable the "username map script" parameter in the smb.conf file.
 Regularly audit the Samba configuration for any misconfigurations and vulnerabilities.
 Implement network segmentation to isolate the Samba server from critical systems and sensitive data.
 Use strong Samba user credentials and implement account lockout policies to mitigate brute force attacks.
 
 - Exploit 6: SSH Brute Force Login (Port 22 - SSH)
+
 Use strong SSH user credentials and implement account lockout policies to mitigate brute force attacks.
 Implement two-factor authentication (2FA) for SSH access to add an extra layer of security.
 Monitor SSH logs for failed login attempts and implement automated blocking of IP addresses with multiple failed login attempts.
 Regularly update and patch the SSH server to protect against known vulnerabilities.
 
 - Exploit 7: PostgreSQL Brute Force Login (Port 5432 - PostgreSQL)
+
 Use strong PostgreSQL user credentials and implement account lockout policies to mitigate brute force attacks.
 Implement network encryption (SSL/TLS) for PostgreSQL connections to protect against eavesdropping and man-in-the-middle attacks.
 Regularly monitor PostgreSQL logs for failed login attempts and implement automated blocking of IP addresses with multiple failed login attempts.
 Regularly update and patch PostgreSQL to protect against known vulnerabilities.
 
 - Exploit 8: MySQL Version Detection (Port 3306 - MySQL)
+
 Regularly update and patch MySQL to protect against known vulnerabilities.
 Implement strong MySQL user credentials and implement account lockout policies to mitigate brute force attacks.
 Enable network encryption (SSL/TLS) for MySQL connections to protect against eavesdropping and man-in-the-middle attacks.
 Implement network segmentation to isolate the MySQL server from critical systems and sensitive data.
 
 - Exploit 9: SMTP User Enumeration (Port 25 - SMTP)
+
 Implement rate limiting and account lockout policies to mitigate brute force attacks.
 Regularly monitor SMTP logs for suspicious activity, such as multiple failed login attempts.
 Configure SMTP servers to provide limited information in response to invalid user login attempts to prevent user enumeration.
 Regularly update and patch SMTP servers to protect against known vulnerabilities.
 
 - Exploit 10: Telnet Brute Force Login (Port 23 - Telnet)
+
 Disable the Telnet service and use SSH instead, which provides stronger security.
 Implement strong SSH user credentials and implement account lockout policies to mitigate brute force attacks.
 Monitor Telnet logs for failed login attempts and implement automated blocking of IP addresses with multiple failed login attempts.
 Regularly update and patch the Telnet server to protect against known vulnerabilities.
 
 - Exploit 11: RPCbind Port 111 Privilege Escalation Attack (Ports 111 and 2049 - RPCbind/NFS)
+
 Disable unnecessary RPC services and protocols to reduce the attack surface.
 Implement firewall rules to restrict access to RPC services from trusted hosts and networks.
 Regularly update and patch the RPC services and NFS to protect against known vulnerabilities.
 Implement network encryption (SSL/TLS) for NFS connections to protect against eavesdropping and man-in-the-middle attacks.
 
 - Exploit 12: Ingreslock (Port 1524 - Ingreslock)
+
 Disable the Ingreslock service if it is not required.
 Implement network segmentation to isolate the Ingreslock service from critical systems and sensitive data.
 Regularly update and patch the Ingreslock service to protect against known vulnerabilities.
 Monitor Ingreslock logs for suspicious activity and unauthorized access attempts.
 
 - Exploit 13: Java RMI Server Insecure Deserialization (Ports 1099 and 49104 - Java RMI)
+
 Disable or restrict access to the Java RMI service if it is not required.
 Implement network segmentation to isolate the Java RMI service from critical systems and sensitive data.
 Regularly update and patch the Java RMI service to protect against known vulnerabilities.
 Monitor Java RMI logs for suspicious activity and unauthorized access attempts.
 
 - Exploit 14: FTP Brute Force Login (Port 21 - FTP)
+
 Implement strong FTP user credentials and implement account lockout policies to mitigate brute force attacks.
 Regularly monitor FTP logs for failed login attempts and implement automated blocking of IP addresses with multiple failed login attempts.
 Implement network encryption (SSL/TLS) for FTP connections to protect against eavesdropping and man-in-the-middle attacks.
 Regularly update and patch the FTP server to protect against known vulnerabilities.
 
 - Exploit 15: VNC Brute Force Login (Port 5900 - VNC)
+
 Implement strong VNC user credentials and implement account lockout policies to mitigate brute force attacks.
 Regularly monitor VNC logs for failed login attempts and implement automated blocking of IP addresses with multiple failed login attempts.
 Implement network encryption (SSL/TLS) for VNC connections to protect against eavesdropping and man-in-the-middle attacks.
 Regularly update and patch the VNC server to protect against known vulnerabilities.
 
 - Exploit 16: Apache Tomcat Ghostcat Vulnerability (Port 8009 - AJP)
+
 Upgrade to Apache Tomcat version 9.0.31, 8.5.51, or 7.0.100 or later to patch the Ghostcat vulnerability (CVE-2020-1938).
 Disable the AJP connector if it is not required.
 Implement network segmentation to isolate the Apache Tomcat server from critical systems and sensitive data.
 Regularly update and patch Apache Tomcat to protect against known vulnerabilities.
 
 - Exploit 17: Remote Shell (rsh) Brute Force Login (Port 514 - RSH)
+
 Disable the RSH service if it is not required.
 Implement strong RSH user credentials and implement account lockout policies to mitigate brute force attacks.
 Regularly monitor RSH logs for failed login attempts and implement automated blocking of IP addresses with multiple failed login attempts.
